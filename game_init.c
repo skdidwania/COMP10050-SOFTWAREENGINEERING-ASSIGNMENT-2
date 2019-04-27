@@ -10,6 +10,15 @@ based operations*/
 and declaring all obstacle and normal squares
 needed in the game for proper functioning of the game in
 accordance of game rules*/
+/* function to accept the count of players from the user*/
+int  acceptplayercount()
+{
+    int PlayerCount;//variable declaration PlayerCount
+/*asks the user to enter the number of players*/
+ printf("\nPlease enter the number of players you want in the game between 2 and 6");
+ scanf("%d",&PlayerCount);/*accepts the playercount from the user*/
+ return PlayerCount;/*returns the playercount*/
+}
 void initialize_board(square board[NUM_ROWS][NUM_COLUMNS])
 {
   /*loop variable declaration for accessing the  two dimensional board
@@ -19,91 +28,127 @@ void initialize_board(square board[NUM_ROWS][NUM_COLUMNS])
  int m=0;//variable declaration j with type int
  /*using nested loop placing the obstacles and making
  normal squares by specifying the positions according
-  to the game rule*/  
- char obs[ ]="OBSTACLE";
- char nor[ ]="NORMAL";
- for(k=0;i<NUM_ROWS;k++)//for loop with i 
- {
-   for(m=0;j<NUM_COLUMNS;m++)//for loop with j
-   {
-     /*creation of obstacle squares on positions(0,3),(1,6),(2,4),(3,5),(4,2)&(5,7)
-      as specified in the game rule provided by the professor*/
-     if((k==0&&m==3)||(k==1&&m==6)||(k==2&&m==4)||(k==3&&m==5)||(k==4 && m==2)||(k==5 && m==7))//accessing the positions
-     {
-      /*making that position as an obstacle 
-      on the board*/
-       board[k][m].type=obs;//making it an obstacle on the board
-      } 
-       else
-       {
-         //else create a normal square on the board
-         board[k][m].type=nor;//normal square
+  to the game rule*/   
+ /*100% provided by the professor*/
+ int i,j;
+ for (i =0; i< NUM_ROWS; i++){
+        for(j =0; j < NUM_COLUMNS; j++){
+            //creates an obstacle square at positions (0,3), (1,6), (2,4), (3,5), (4,2) and (5,7)
+            if((i == 0 && j==3) || (i == 1 && j == 6) || (i ==2 && j ==4)
+                    || (i == 3 && j ==5) || (i==4 && j==2) || (i==5 && j==7)){
+                board[i][j].type = OBSTACLE;
+            } else{
+                //creates a normal square otherwise
+                board[i][j].type = NORMAL;
+            }
+            board[i][j].stack_top = NULL;
         }
-      board[k][m].stack_top=NULL;/**/
   
      }
  
   }
-
-}//end of initialize_board function
-
+/*end of initializeboard*/
 enum color selectcolor(int i)
 {
   enum color col;
-  switch(i)
+  /*if i equals 0
+   then store RED in col*/
+  if(i==0)
   {
-     case 0: col =  RED;
-             break;
-     case 1: col = BLUE;
-             break;
-     case 2: col = GREEN;
-              break;
-     case 3: col = YELLOW;
-             break;
-     case 4: col = PINK;
-             break;
-     case 5: col = ORANGE;
-             break;
-     default: break;
+   col=RED;
   }
+  /*if i equals 1
+   then store BLUE in col*/
+  if(i==1)
+  {
+   col=BLUE;
+  }
+  /*if i equals 2
+   then store GREEN in col*/
+  if(i==2)
+  {
+   col=GREEN;
+  }
+  /*if i equals 3
+   then store YELLOW in col*/
+  if(i==3)
+  {
+   col=YELLOW;
+  }
+  /*if i equals 4
+   then store PINK in col*/
+  if(i==4)
+  {
+   col=PINK;
+  }
+  /*if i equals 5
+   then store ORANGE in col*/
+    if(i==5)
+  {
+   col=ORANGE;
+  }
+  /*returns the colour from this function*/
   return col;
-}
+}//end of the function
  /*function initialize_players creates players
  and accepts the colour the player want to chose and the
  player's name and also returns the playercount*/
 int initialize_players(player players[])
 {
- int PlayerCount;/*stores the player count provided by the user*/
+ 
  enum color col;//stores the color
  int l;//accepts the choice of color for the user
  int p;//stores the indexing for looping
  char nameofplayer[20];//stores the name of player as specified by the user
- /*asks the user to enter the number of players*/
- printf("\nPlease enter the number of players you want in the game between 2 and 6");
- scanf("%d",&PlayerCount);
- if(PlayerCount<2 && PlayerCount>6)
+ int totalplayers=0;
+ /*invokes the function acceptplayercount to accept the
+  number of players and storing it in the 
+  variable totalplayers*/
+ totalplayers=acceptplayercount();
+ /*checks if the playerCount is less than 2 or greater than 6
+ and if its true then prints that the game cannot accept
+ that amount of players a s it would go against the
+ *  rules of the game and asks the user to enter 
+ the playerCount again*/
+ if( totalplayers<2|| totalplayers>6)
  {
+  /*prints that cannot accept players players
+    which are not within the above range*/
   printf("Cannot accept..Please enter players between 2 and 6");
-  scanf("%d",&PlayerCount);
+  scanf("%d",&totalplayers);/*takes the input again*/
  }
- for(p=0;p<PlayerCount;p++)
+ /*for loop to accept the details of the players
+  including name ,giving them the choice of colours*/
+ for(p=0;p<totalplayers;p++)
  {
-   printf("\nDetails of player %d:",p+1);
-   printf("\nName: ");
+   printf("\nDetails of the igel argern game player %d:",p+1);
+   printf("\nName: ");//prints on the screen to input the name of player
+   /*accepts the name of the player*/
    scanf("%s",nameofplayer);
+   /*asks the user to press the respective numbers for 
+    the colour they want their token to be of*/
    printf("Enter the colour you want \n");
    printf("Press 0 for  RED,1 for blue 2 for green 3 for yellow 4 for pink 5 for orange\n");
+   /*accepts the choice of colour*/
    scanf("%d",&l);
+   /*checks if the choice of the user is valid or
+    not and if not valid then asks the user
+    to input the correct value again*/
    if(l<0|| l>6)
    {
+   /*asks the user to enter the correct value for l */
     printf("Enter the correct value for l");
-    scanf("%d",&l);
+    scanf("%d",&l);//accepts the value for l again
    }
+   /*calls the selectcolor function and passes the value l
+    which gets the required color and stores it in col declared
+    in the beginning of this function*/
    col=selectcolor(l);
-   strcpy(players[i].name,nameofplayer);
-   printf("Color %d\n", i);
+   /*copies the nameofplayer to players*/
+   strcpy(players[p].name,nameofplayer);
+   printf("Color %d\n", l);
    players[p].col = col;
  }
- return PlayerCount;
+ return totalplayers;//returns the total number of players
 
 }//end of the code
