@@ -59,46 +59,7 @@ char print_token(token *l)
  }
  return '\0';
 }//end of print token function
-char colofplayer(player t)
-{
-  /*if player color is RED
-  then return character 'R'*/
- if((t).col==RED)
- {
-    return 'R';
- }
- /*if player color is PINK
-  then return character 'P'*/
- if((t).col==PINK)
- {
-    return 'P';
- }
- /*if token color is GREEN
-  then return character 'G'*/
- if((t).col==GREEN)
- {
-   return 'G';
- }
- /*if token color is BLUE
-  then return character 'B'*/
- if((t).col==BLUE)
- {
-  return 'B';
- }
- /*if token color is ORANGE
-  then return character 'O'*/
- if((t).col==ORANGE)
- {
-    return 'O';
- }
- /*if token color is YELLOW
-  then return character 'Y'*/
- if((t).col== YELLOW) 
-  {
-    return 'Y';
-  }
-   return '\0';
-}
+
 /*function randomgeneration() generates
 a random number between 0 and 5 and returns
 the random number*/
