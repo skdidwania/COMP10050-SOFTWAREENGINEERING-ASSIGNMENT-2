@@ -20,6 +20,46 @@ int  acceptplayercount()
  scanf("%d",&PlayerCount);/*accepts the playercount from the user*/
  return PlayerCount;/*returns the playercount*/
 }
+char colofplayer(player t)
+{
+  /*if player color is RED
+  then return character 'R'*/
+ if((t).col==RED)
+ {
+    return 'R';
+ }
+ /*if player color is PINK
+  then return character 'P'*/
+ if((t).col==PINK)
+ {
+    return 'P';
+ }
+ /*if token color is GREEN
+  then return character 'G'*/
+ if((t).col==GREEN)
+ {
+   return 'G';
+ }
+ /*if token color is BLUE
+  then return character 'B'*/
+ if((t).col==BLUE)
+ {
+  return 'B';
+ }
+ /*if token color is ORANGE
+  then return character 'O'*/
+ if((t).col==ORANGE)
+ {
+    return 'O';
+ }
+ /*if token color is YELLOW
+  then return character 'Y'*/
+ if((t).col== YELLOW) 
+  {
+    return 'Y';
+  }
+   return '\0';
+}
 void initialize_board()
 {
   /*loop variable declaration for accessing the  two dimensional board
